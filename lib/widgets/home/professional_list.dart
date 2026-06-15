@@ -43,15 +43,26 @@ class _ProfessionalTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 26,
-            backgroundColor: ZokoColors.teal.withValues(alpha: 0.12),
-            child: Text(
-              professional.name.characters.first,
-              style: const TextStyle(
-                color: ZokoColors.teal,
-                fontWeight: FontWeight.w900,
-                fontSize: 20,
+          Container(
+            width: 58,
+            height: 58,
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              border: Border.all(color: ZokoColors.softGrey),
+              boxShadow: [
+                BoxShadow(
+                  color: ZokoColors.navy.withValues(alpha: 0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                professional.imageAsset,
+                fit: BoxFit.cover,
               ),
             ),
           ),

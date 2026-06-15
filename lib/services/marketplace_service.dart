@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoko_marketplace/core/constants/app_assets.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/models/category_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
@@ -58,22 +59,25 @@ class MarketplaceService {
   List<ProfessionalModel> getTopProfessionals() {
     return const [
       ProfessionalModel(
-        name: 'Ama K.',
-        role: 'UI/UX Designer',
+        name: 'Alfred A.',
+        role: 'Business Consultant',
         rating: '4.9',
         jobs: '127 jobs',
+        imageAsset: AppAssets.alfredProfile,
       ),
       ProfessionalModel(
-        name: 'Kojo M.',
-        role: 'Full-stack Developer',
+        name: 'Emmanuel K.',
+        role: 'UI/UX Designer',
         rating: '4.8',
         jobs: '89 jobs',
+        imageAsset: AppAssets.emmanuelProfile,
       ),
       ProfessionalModel(
-        name: 'Esi B.',
-        role: 'Business Consultant',
+        name: 'Samuel O.',
+        role: 'Full Stack Developer',
         rating: '5.0',
         jobs: '64 jobs',
+        imageAsset: AppAssets.samuelProfile,
       ),
     ];
   }

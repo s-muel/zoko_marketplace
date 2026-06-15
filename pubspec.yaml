@@ -60,6 +60,9 @@ flutter:
   assets:
     - assets/images/zoko_marketplace_logo.png
     - assets/images/google logo.png
+    - assets/images/Alfred.png
+    - assets/images/Emmanuel.png
+    - assets/images/Samuel.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
