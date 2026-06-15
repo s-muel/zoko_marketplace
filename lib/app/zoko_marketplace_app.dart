@@ -10,6 +10,7 @@ import 'package:zoko_marketplace/screens/jobs/hire_request_details_screen.dart';
 import 'package:zoko_marketplace/screens/jobs/hire_requests_screen.dart';
 import 'package:zoko_marketplace/screens/marketplace/explore_screen.dart';
 import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
+import 'package:zoko_marketplace/screens/profile/client_profile_screen.dart';
 
 class ZokoMarketplaceApp extends StatelessWidget {
   const ZokoMarketplaceApp({super.key});
@@ -27,6 +28,7 @@ class ZokoMarketplaceApp extends StatelessWidget {
         MarketplaceHomePage.routeName: (_) => const MarketplaceHomePage(),
         ExploreScreen.routeName: (_) => const ExploreScreen(),
         HireRequestsScreen.routeName: (_) => const HireRequestsScreen(),
+        ClientProfileScreen.routeName: (_) => const ClientProfileScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == ProfessionalProfileRoute.name) {

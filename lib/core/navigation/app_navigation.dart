@@ -8,6 +8,7 @@ class AppNavigation {
       0 => '/home',
       1 => '/explore',
       2 => '/hire-requests',
+      3 => '/profile',
       _ => null,
     };
 
