@@ -37,7 +37,7 @@ class MarketplaceService {
     return const [
       ServiceModel(
         title: 'Brand identity package',
-        price: 'From GHS 450',
+        price: 'From GHS 200',
         icon: Icons.auto_awesome_rounded,
         color: ZokoColors.teal,
       ),
