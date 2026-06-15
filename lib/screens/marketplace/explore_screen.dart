@@ -30,6 +30,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
 
     return Scaffold(
+      extendBody: true,
       body: SafeArea(
         child: ResponsivePage(
           child: LayoutBuilder(
@@ -40,8 +41,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
               return ListView(
                 children: [
-                  _ExploreHeader(isDesktop: isDesktop),
-                  const SizedBox(height: 18),
                   const _SearchPanel(),
                   const SizedBox(height: 18),
                   _CategoryFilters(
@@ -119,96 +118,6 @@ class _EmptyResults extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(color: ZokoColors.textGrey, height: 1.4),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ExploreHeader extends StatelessWidget {
-  const _ExploreHeader({required this.isDesktop});
-
-  final bool isDesktop;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(isDesktop ? 24 : 18),
-      decoration: BoxDecoration(
-        color: ZokoColors.navy,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: ZokoColors.navy.withValues(alpha: 0.14),
-            blurRadius: 22,
-            offset: const Offset(0, 11),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ZokoColors.green.withValues(alpha: 0.16),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'Explore professionals',
-                    style: TextStyle(
-                      color: ZokoColors.green,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Text(
-                  'Find the right expert for your next project.',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: isDesktop ? 34 : 26,
-                    height: 1.08,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Browse verified professionals, compare services, and request managed hiring through Zoko.',
-                  style: TextStyle(
-                    color: Color(0xFFC9D5DD),
-                    height: 1.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (isDesktop) ...[
-            const SizedBox(width: 24),
-            Container(
-              width: 118,
-              height: 118,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.14),
-                ),
-              ),
-              child: const Icon(
-                Icons.manage_search_rounded,
-                color: ZokoColors.green,
-                size: 54,
-              ),
-            ),
-          ],
         ],
       ),
     );

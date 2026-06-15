@@ -25,6 +25,7 @@ class MarketplaceHomePage extends StatelessWidget {
     final professionals = _marketplaceService.getTopProfessionals();
 
     return Scaffold(
+      extendBody: true,
       body: SafeArea(
         child: ResponsivePage(
           child: LayoutBuilder(
