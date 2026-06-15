@@ -24,6 +24,13 @@ class CategoryStrip extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: ZokoColors.softGrey),
+              boxShadow: [
+                BoxShadow(
+                  color: ZokoColors.navy.withValues(alpha: 0.08),
+                  blurRadius: 14,
+                  offset: const Offset(0, 7),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

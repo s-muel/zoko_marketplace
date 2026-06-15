@@ -24,6 +24,13 @@ class PopularServices extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: ZokoColors.softGrey),
+              boxShadow: [
+                BoxShadow(
+                  color: ZokoColors.navy.withValues(alpha: 0.09),
+                  blurRadius: 16,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
