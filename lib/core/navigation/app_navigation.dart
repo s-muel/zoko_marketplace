@@ -7,6 +7,7 @@ class AppNavigation {
     final routeName = switch (index) {
       0 => '/home',
       1 => '/explore',
+      2 => '/hire-requests',
       _ => null,
     };
 

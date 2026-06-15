@@ -71,9 +71,9 @@ class ZokoBottomNav extends StatelessWidget {
                   label: 'Explore',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.chat_bubble_outline_rounded),
-                  selectedIcon: Icon(Icons.chat_bubble_rounded),
-                  label: 'Inbox',
+                  icon: Icon(Icons.assignment_outlined),
+                  selectedIcon: Icon(Icons.assignment_rounded),
+                  label: 'Requests',
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.person_outline_rounded),
