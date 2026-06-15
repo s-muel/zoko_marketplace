@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/models/portfolio_sample_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/widgets/marketplace/hire_request_sheet.dart';
 import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
@@ -7,6 +9,7 @@ import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
 class ProfessionalProfileScreen extends StatelessWidget {
   const ProfessionalProfileScreen({super.key, required this.professional});
 
+  static const routeName = '/professional-profile';
   final ProfessionalModel professional;
 
   @override
@@ -18,23 +21,52 @@ class ProfessionalProfileScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: ResponsivePage(
-          maxWidth: 920,
-          child: ListView(
-            children: [
-              _ProfileHeader(professional: professional),
-              const SizedBox(height: 18),
-              _InfoPanel(professional: professional),
-              const SizedBox(height: 18),
-              _ServicesPanel(professional: professional),
-              const SizedBox(height: 18),
-              _PortfolioPanel(professional: professional),
-              const SizedBox(height: 24),
-              FilledButton.icon(
-                onPressed: () => _openHireRequest(context),
-                icon: const Icon(Icons.handshake_rounded),
-                label: const Text('Hire through Zoko'),
-              ),
-            ],
+          maxWidth: 1180,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isDesktop = ResponsiveBreakpoints.isDesktop(
+                constraints.maxWidth,
+              );
+
+              final profileContent = Column(
+                children: [
+                  _ProfileHeader(professional: professional),
+                  const SizedBox(height: 18),
+                  _InfoPanel(professional: professional),
+                  const SizedBox(height: 18),
+                  _ServicesPanel(professional: professional),
+                  const SizedBox(height: 18),
+                  _PortfolioPanel(
+                    professional: professional,
+                    useGrid: isDesktop,
+                  ),
+                ],
+              );
+
+              final hirePanel = _HireSummaryPanel(
+                professional: professional,
+                onHire: () => _openHireRequest(context),
+              );
+
+              return ListView(
+                children: [
+                  if (isDesktop)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 7, child: profileContent),
+                        const SizedBox(width: 24),
+                        SizedBox(width: 340, child: hirePanel),
+                      ],
+                    )
+                  else ...[
+                    profileContent,
+                    const SizedBox(height: 24),
+                    hirePanel,
+                  ],
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -85,7 +117,10 @@ class _ProfileHeader extends StatelessWidget {
                   ],
                 ),
                 child: ClipOval(
-                  child: Image.asset(professional.imageAsset, fit: BoxFit.cover),
+                  child: Image.asset(
+                    professional.imageAsset,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -194,10 +229,7 @@ class _InfoPanel extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             professional.about,
-            style: const TextStyle(
-              color: ZokoColors.textGrey,
-              height: 1.45,
-            ),
+            style: const TextStyle(color: ZokoColors.textGrey, height: 1.45),
           ),
         ],
       ),
@@ -262,9 +294,10 @@ class _ServicesPanel extends StatelessWidget {
 }
 
 class _PortfolioPanel extends StatelessWidget {
-  const _PortfolioPanel({required this.professional});
+  const _PortfolioPanel({required this.professional, required this.useGrid});
 
   final ProfessionalModel professional;
+  final bool useGrid;
 
   @override
   Widget build(BuildContext context) {
@@ -283,89 +316,231 @@ class _PortfolioPanel extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 168,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+          if (useGrid)
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: professional.portfolioSamples.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 12),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 1.28,
+              ),
               itemBuilder: (context, index) {
-                final sample = professional.portfolioSamples[index];
-
-                return Container(
-                  width: 220,
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: sample.color,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: sample.color.withValues(alpha: 0.28),
-                        blurRadius: 16,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        right: -24,
-                        top: -18,
-                        child: Icon(
-                          sample.icon,
-                          color: Colors.white.withValues(alpha: 0.16),
-                          size: 104,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 42,
-                            height: 42,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.18),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.18),
-                              ),
-                            ),
-                            child: Icon(sample.icon, color: Colors.white),
-                          ),
-                          const Spacer(),
-                          Text(
-                            sample.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              height: 1.2,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            sample.subtitle,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Color(0xFFEAF6F7),
-                              fontSize: 12,
-                              height: 1.3,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                return _PortfolioCard(
+                  sample: professional.portfolioSamples[index],
                 );
               },
+            )
+          else
+            SizedBox(
+              height: 168,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: professional.portfolioSamples.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 220,
+                    child: _PortfolioCard(
+                      sample: professional.portfolioSamples[index],
+                    ),
+                  );
+                },
+              ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PortfolioCard extends StatelessWidget {
+  const _PortfolioCard({required this.sample});
+
+  final PortfolioSampleModel sample;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: sample.color,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: sample.color.withValues(alpha: 0.28),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: -24,
+            top: -18,
+            child: Icon(
+              sample.icon,
+              color: Colors.white.withValues(alpha: 0.16),
+              size: 104,
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.18),
+                  ),
+                ),
+                child: Icon(sample.icon, color: Colors.white),
+              ),
+              const Spacer(),
+              Text(
+                sample.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  height: 1.2,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                sample.subtitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xFFEAF6F7),
+                  fontSize: 12,
+                  height: 1.3,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HireSummaryPanel extends StatelessWidget {
+  const _HireSummaryPanel({required this.professional, required this.onHire});
+
+  final ProfessionalModel professional;
+  final VoidCallback onHire;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: _panelDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Hire managed by Zoko',
+            style: TextStyle(
+              color: ZokoColors.navy,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Send a request and Zoko admin will confirm charges with the professional, then invoice you.',
+            style: TextStyle(color: ZokoColors.textGrey, height: 1.4),
+          ),
+          const SizedBox(height: 16),
+          _HireStep(
+            icon: Icons.notifications_active_rounded,
+            label: 'Admin receives your request',
+          ),
+          const SizedBox(height: 10),
+          _HireStep(
+            icon: Icons.handshake_rounded,
+            label: 'Professional confirms price',
+          ),
+          const SizedBox(height: 10),
+          _HireStep(
+            icon: Icons.receipt_long_rounded,
+            label: 'You receive final invoice',
+          ),
+          const SizedBox(height: 18),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: ZokoColors.green.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.payments_rounded, color: ZokoColors.green),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    professional.startingPrice,
+                    style: const TextStyle(
+                      color: ZokoColors.navy,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          FilledButton.icon(
+            onPressed: onHire,
+            icon: const Icon(Icons.handshake_rounded),
+            label: const Text('Hire through Zoko'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HireStep extends StatelessWidget {
+  const _HireStep({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: ZokoColors.teal.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: ZokoColors.teal, size: 18),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: ZokoColors.navy,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

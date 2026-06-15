@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:zoko_marketplace/core/navigation/app_navigation.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 
 class ZokoBottomNav extends StatelessWidget {
-  const ZokoBottomNav({super.key});
+  const ZokoBottomNav({super.key, required this.selectedIndex});
+
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,13 @@ class ZokoBottomNav extends StatelessWidget {
       height: 72,
       backgroundColor: Colors.white,
       indicatorColor: ZokoColors.teal.withValues(alpha: 0.12),
-      selectedIndex: 0,
+      selectedIndex: selectedIndex,
+      onDestinationSelected: (index) {
+        if (index == selectedIndex) {
+          return;
+        }
+        AppNavigation.openTab(context, index);
+      },
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home_outlined),

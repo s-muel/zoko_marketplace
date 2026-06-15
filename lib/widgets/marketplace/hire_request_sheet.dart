@@ -67,7 +67,7 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
               ),
               const SizedBox(height: 6),
               Text(
-                'Zoko admin will review this request, contact ${widget.professional.name}, confirm charges, add commission, and invoice you.',
+                'Zoko admin will review this request, contact ${widget.professional.name}, confirm charges, and invoice you.',
                 style: const TextStyle(
                   color: ZokoColors.textGrey,
                   height: 1.4,
@@ -99,6 +99,8 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
                 label: 'Preferred deadline',
                 icon: Icons.event_available_rounded,
               ),
+              const SizedBox(height: 14),
+              const _PictureAttachmentBox(),
               const SizedBox(height: 22),
               FilledButton.icon(
                 onPressed: _submitRequest,
@@ -129,6 +131,74 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Hire request sent to Zoko admin for review.'),
+      ),
+    );
+  }
+}
+
+class _PictureAttachmentBox extends StatelessWidget {
+  const _PictureAttachmentBox();
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Picture upload will be connected with file storage.'),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: ZokoColors.teal.withValues(alpha: 0.34),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 46,
+              height: 46,
+              decoration: BoxDecoration(
+                color: ZokoColors.teal.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.add_photo_alternate_rounded,
+                color: ZokoColors.teal,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Add reference pictures',
+                    style: TextStyle(
+                      color: ZokoColors.navy,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Upload samples, sketches, screenshots, or inspiration.',
+                    style: TextStyle(
+                      color: ZokoColors.textGrey,
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.upload_rounded, color: ZokoColors.green),
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zoko_marketplace/app/zoko_marketplace_app.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
+import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
 
 class ProfessionalList extends StatelessWidget {
   const ProfessionalList({super.key, required this.professionals});
@@ -31,7 +31,7 @@ class _ProfessionalTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
-          ProfessionalProfileRoute.name,
+          ProfessionalProfileScreen.routeName,
           arguments: professional,
         );
       },

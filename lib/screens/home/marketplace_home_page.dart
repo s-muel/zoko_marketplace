@@ -87,7 +87,7 @@ class MarketplaceHomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const ZokoBottomNav(),
+      bottomNavigationBar: const ZokoBottomNav(selectedIndex: 0),
       backgroundColor: ZokoColors.canvas,
     );
   }

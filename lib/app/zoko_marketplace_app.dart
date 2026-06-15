@@ -5,6 +5,7 @@ import 'package:zoko_marketplace/screens/auth/auth_welcome_screen.dart';
 import 'package:zoko_marketplace/screens/auth/login_screen.dart';
 import 'package:zoko_marketplace/screens/auth/signup_screen.dart';
 import 'package:zoko_marketplace/screens/home/marketplace_home_page.dart';
+import 'package:zoko_marketplace/screens/marketplace/explore_screen.dart';
 import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
 
 class ZokoMarketplaceApp extends StatelessWidget {
@@ -21,6 +22,7 @@ class ZokoMarketplaceApp extends StatelessWidget {
         LoginScreen.routeName: (_) => const LoginScreen(),
         SignupScreen.routeName: (_) => const SignupScreen(),
         MarketplaceHomePage.routeName: (_) => const MarketplaceHomePage(),
+        ExploreScreen.routeName: (_) => const ExploreScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == ProfessionalProfileRoute.name) {
@@ -42,5 +44,5 @@ class ZokoMarketplaceApp extends StatelessWidget {
 class ProfessionalProfileRoute {
   const ProfessionalProfileRoute._();
 
-  static const name = '/professional-profile';
+  static const name = ProfessionalProfileScreen.routeName;
 }
