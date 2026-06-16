@@ -30,6 +30,11 @@ class AllJobsScreen extends StatelessWidget {
               final isDesktop = ResponsiveBreakpoints.isDesktop(
                 constraints.maxWidth,
               );
+              final crossAxisCount = constraints.maxWidth >= 1024
+                  ? 3
+                  : constraints.maxWidth >= 680
+                      ? 2
+                      : 1;
 
               return ListView(
                 padding: const EdgeInsets.only(bottom: 92),
@@ -42,8 +47,8 @@ class AllJobsScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: jobs.length,
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 16,
                         mainAxisExtent: 188,
@@ -93,57 +98,30 @@ class _JobsHeader extends StatelessWidget {
         color: ZokoColors.navy,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final headerText = Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Browse client job posts',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '$totalCount open jobs available now',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.78),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          );
-
-          final postButton = FilledButton.icon(
-            onPressed: () {
-              Navigator.of(context).pushNamed(PostJobScreen.routeName);
-            },
-            icon: const Icon(Icons.add_rounded),
-            label: const Text('Post job'),
-          );
-
-          if (constraints.maxWidth < 520) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                headerText,
-                const SizedBox(height: 16),
-                postButton,
-              ],
-            );
-          }
-
-          return Row(
-            children: [
-              Expanded(child: headerText),
-              const SizedBox(width: 12),
-              postButton,
-            ],
-          );
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Browse client job posts',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '$totalCount open jobs available now',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.78),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
     );
   }
