@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/constants/app_assets.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/models/category_model.dart';
+import 'package:zoko_marketplace/models/job_post_model.dart';
 import 'package:zoko_marketplace/models/portfolio_sample_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/models/service_model.dart';
@@ -52,6 +53,71 @@ class MarketplaceService {
         title: 'Business registration',
         price: 'From GHS 650',
         icon: Icons.assignment_turned_in_rounded,
+        color: ZokoColors.cyan,
+      ),
+    ];
+  }
+
+  List<JobPostModel> getHotJobs() {
+    return const [
+      JobPostModel(
+        title: 'Logo and brand kit for a new fashion shop',
+        clientName: 'Ama Stores',
+        category: 'Design',
+        budget: 'GHS 450',
+        deadline: '7 days',
+        description:
+            'Need a clean logo, color palette, and social media brand direction.',
+        postedAt: 'Posted today',
+        icon: Icons.palette_rounded,
+        color: ZokoColors.teal,
+      ),
+      JobPostModel(
+        title: 'Small business website with WhatsApp contact',
+        clientName: 'Bright Foods',
+        category: 'Tech',
+        budget: 'GHS 1,200',
+        deadline: '2 weeks',
+        description:
+            'Build a responsive website with product sections and contact form.',
+        postedAt: 'Posted 1 day ago',
+        icon: Icons.web_rounded,
+        color: ZokoColors.cyan,
+      ),
+      JobPostModel(
+        title: 'Business plan and investor pitch deck',
+        clientName: 'Kofi Mensah',
+        category: 'Business',
+        budget: 'GHS 800',
+        deadline: '10 days',
+        description:
+            'Prepare a practical business plan and presentation for funding.',
+        postedAt: 'Posted 2 days ago',
+        icon: Icons.assignment_rounded,
+        color: ZokoColors.green,
+      ),
+      JobPostModel(
+        title: 'Product photos and flyer design for online sales',
+        clientName: 'Nana Beauty',
+        category: 'Design',
+        budget: 'GHS 600',
+        deadline: '5 days',
+        description:
+            'Need product images cleaned up and promotional flyers for social media.',
+        postedAt: 'Posted 3 days ago',
+        icon: Icons.photo_camera_rounded,
+        color: ZokoColors.teal,
+      ),
+      JobPostModel(
+        title: 'Home electrical repair and safety check',
+        clientName: 'Mr. Owusu',
+        category: 'Home',
+        budget: 'GHS 350',
+        deadline: 'This week',
+        description:
+            'Looking for a reliable technician to inspect and repair wiring issues.',
+        postedAt: 'Posted 4 days ago',
+        icon: Icons.electrical_services_rounded,
         color: ZokoColors.cyan,
       ),
     ];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/screens/admin/admin_dashboard_screen.dart';
 import 'package:zoko_marketplace/screens/auth/auth_welcome_screen.dart';
 import 'package:zoko_marketplace/widgets/app/zoko_bottom_nav.dart';
 import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
@@ -240,6 +241,16 @@ class _SettingsPanel extends StatelessWidget {
     return _ProfileSection(
       title: 'Settings',
       children: [
+        _ProfileAction(
+          icon: Icons.admin_panel_settings_rounded,
+          title: 'Admin dashboard',
+          subtitle: 'Review requests, quotes, invoices, and job progress',
+          color: ZokoColors.navy,
+          onTap: () {
+            Navigator.of(context).pushNamed(AdminDashboardScreen.routeName);
+          },
+        ),
+        const Divider(height: 20, color: ZokoColors.softGrey),
         const _ProfileAction(
           icon: Icons.notifications_none_rounded,
           title: 'Notification preferences',

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/services/marketplace_service.dart';
+import 'package:zoko_marketplace/screens/jobs/all_jobs_screen.dart';
+import 'package:zoko_marketplace/screens/jobs/post_job_screen.dart';
 import 'package:zoko_marketplace/widgets/app/zoko_bottom_nav.dart';
 import 'package:zoko_marketplace/widgets/home/callout_panel.dart';
 import 'package:zoko_marketplace/widgets/home/category_strip.dart';
 import 'package:zoko_marketplace/widgets/home/hero_search.dart';
-import 'package:zoko_marketplace/widgets/home/popular_services.dart';
+import 'package:zoko_marketplace/widgets/home/hot_jobs.dart';
 import 'package:zoko_marketplace/widgets/home/professional_list.dart';
 import 'package:zoko_marketplace/widgets/home/zoko_header.dart';
 import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
@@ -21,7 +23,7 @@ class MarketplaceHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = _marketplaceService.getCategories();
-    final services = _marketplaceService.getPopularServices();
+    final hotJobs = _marketplaceService.getHotJobs();
     final professionals = _marketplaceService.getTopProfessionals();
 
     return Scaffold(
@@ -41,12 +43,18 @@ class MarketplaceHomePage extends StatelessWidget {
                   const SizedBox(height: 22),
                   CategoryStrip(categories: categories),
                   const SizedBox(height: 28),
-                  const SectionTitle(
-                    title: 'Popular services',
-                    action: 'See all',
+                  HotJobsHeader(
+                    onPostJob: () {
+                      Navigator.of(context).pushNamed(
+                        PostJobScreen.routeName,
+                      );
+                    },
+                    onViewAll: () {
+                      Navigator.of(context).pushNamed(AllJobsScreen.routeName);
+                    },
                   ),
                   const SizedBox(height: 14),
-                  PopularServices(services: services),
+                  HotJobs(jobs: hotJobs),
                 ],
               );
 
