@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/hire_request_model.dart';
+import 'package:zoko_marketplace/models/job_post_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/screens/admin/admin_dashboard_screen.dart';
 import 'package:zoko_marketplace/screens/auth/auth_welcome_screen.dart';
@@ -10,10 +11,16 @@ import 'package:zoko_marketplace/screens/home/marketplace_home_page.dart';
 import 'package:zoko_marketplace/screens/jobs/all_jobs_screen.dart';
 import 'package:zoko_marketplace/screens/jobs/hire_request_details_screen.dart';
 import 'package:zoko_marketplace/screens/jobs/hire_requests_screen.dart';
+import 'package:zoko_marketplace/screens/jobs/job_details_screen.dart';
 import 'package:zoko_marketplace/screens/jobs/post_job_screen.dart';
 import 'package:zoko_marketplace/screens/marketplace/explore_screen.dart';
 import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
 import 'package:zoko_marketplace/screens/profile/client_profile_screen.dart';
+import 'package:zoko_marketplace/screens/professional/professional_dashboard_screen.dart';
+import 'package:zoko_marketplace/screens/professional/professional_jobs_screen.dart';
+import 'package:zoko_marketplace/screens/professional/professional_profile_screen.dart'
+    as professional_owner;
+import 'package:zoko_marketplace/screens/professional/professional_proposals_screen.dart';
 
 class ZokoMarketplaceApp extends StatelessWidget {
   const ZokoMarketplaceApp({super.key});
@@ -34,6 +41,13 @@ class ZokoMarketplaceApp extends StatelessWidget {
         HireRequestsScreen.routeName: (_) => const HireRequestsScreen(),
         PostJobScreen.routeName: (_) => const PostJobScreen(),
         ClientProfileScreen.routeName: (_) => const ClientProfileScreen(),
+        ProfessionalDashboardScreen.routeName: (_) =>
+            const ProfessionalDashboardScreen(),
+        ProfessionalJobsScreen.routeName: (_) => const ProfessionalJobsScreen(),
+        professional_owner.ProfessionalProfileScreen.routeName: (_) =>
+            const professional_owner.ProfessionalProfileScreen(),
+        ProfessionalProposalsScreen.routeName: (_) =>
+            const ProfessionalProposalsScreen(),
         AdminDashboardScreen.routeName: (_) => const AdminDashboardScreen(),
       },
       onGenerateRoute: (settings) {
@@ -52,6 +66,14 @@ class ZokoMarketplaceApp extends StatelessWidget {
 
           return MaterialPageRoute<void>(
             builder: (_) => HireRequestDetailsScreen(request: request),
+          );
+        }
+
+        if (settings.name == JobDetailsScreen.routeName) {
+          final job = settings.arguments as JobPostModel;
+
+          return MaterialPageRoute<void>(
+            builder: (_) => JobDetailsScreen(job: job),
           );
         }
 

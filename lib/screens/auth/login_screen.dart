@@ -3,6 +3,7 @@ import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/models/account_type.dart';
 import 'package:zoko_marketplace/screens/auth/signup_screen.dart';
 import 'package:zoko_marketplace/screens/home/marketplace_home_page.dart';
+import 'package:zoko_marketplace/screens/professional/professional_dashboard_screen.dart';
 import 'package:zoko_marketplace/widgets/auth/auth_divider.dart';
 import 'package:zoko_marketplace/widgets/auth/auth_text_field.dart';
 import 'package:zoko_marketplace/widgets/auth/google_auth_button.dart';
@@ -49,10 +50,7 @@ class LoginScreen extends StatelessWidget {
               GoogleAuthButton(
                 label: 'Sign in with Google',
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    MarketplaceHomePage.routeName,
-                    (route) => false,
-                  );
+                  _openAccountHome(context, accountType);
                 },
               ),
               const SizedBox(height: 22),
@@ -80,10 +78,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 18),
               FilledButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    MarketplaceHomePage.routeName,
-                    (route) => false,
-                  );
+                  _openAccountHome(context, accountType);
                 },
                 child: const Text('Log in'),
               ),
@@ -111,6 +106,17 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _openAccountHome(BuildContext context, AccountType accountType) {
+    final routeName = accountType == AccountType.professional
+        ? ProfessionalDashboardScreen.routeName
+        : MarketplaceHomePage.routeName;
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      routeName,
+      (route) => false,
     );
   }
 }

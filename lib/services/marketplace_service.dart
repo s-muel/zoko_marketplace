@@ -4,6 +4,7 @@ import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
 import 'package:zoko_marketplace/models/category_model.dart';
 import 'package:zoko_marketplace/models/job_post_model.dart';
 import 'package:zoko_marketplace/models/portfolio_sample_model.dart';
+import 'package:zoko_marketplace/models/professional_proposal_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/models/service_model.dart';
 
@@ -119,6 +120,55 @@ class MarketplaceService {
         postedAt: 'Posted 4 days ago',
         icon: Icons.electrical_services_rounded,
         color: ZokoColors.cyan,
+      ),
+    ];
+  }
+
+  List<ProfessionalProposalModel> getProfessionalProposals() {
+    return const [
+      ProfessionalProposalModel(
+        jobTitle: 'Small business website with WhatsApp contact',
+        clientName: 'Bright Foods',
+        budget: 'GHS 1,200',
+        submittedAt: 'Sent today',
+        message:
+            'I can build the website with a responsive layout and WhatsApp contact flow.',
+        status: ProposalStatus.underReview,
+        icon: Icons.web_rounded,
+        color: ZokoColors.cyan,
+      ),
+      ProfessionalProposalModel(
+        jobTitle: 'Logo and brand kit for a new fashion shop',
+        clientName: 'Ama Stores',
+        budget: 'GHS 450',
+        submittedAt: 'Sent 1 day ago',
+        message:
+            'I can prepare logo concepts, colors, and social media templates.',
+        status: ProposalStatus.sentToAdmin,
+        icon: Icons.palette_rounded,
+        color: ZokoColors.teal,
+      ),
+      ProfessionalProposalModel(
+        jobTitle: 'Business plan and investor pitch deck',
+        clientName: 'Kofi Mensah',
+        budget: 'GHS 800',
+        submittedAt: 'Sent 2 days ago',
+        message:
+            'I can support the plan structure and prepare investor-ready slides.',
+        status: ProposalStatus.quoteRequested,
+        icon: Icons.assignment_rounded,
+        color: ZokoColors.green,
+      ),
+      ProfessionalProposalModel(
+        jobTitle: 'Product photos and flyer design for online sales',
+        clientName: 'Nana Beauty',
+        budget: 'GHS 600',
+        submittedAt: 'Sent 4 days ago',
+        message:
+            'I can clean up product photos and deliver polished promotional flyers.',
+        status: ProposalStatus.accepted,
+        icon: Icons.photo_camera_rounded,
+        color: ZokoColors.teal,
       ),
     ];
   }

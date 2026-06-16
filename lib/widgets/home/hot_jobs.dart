@@ -19,13 +19,10 @@ class HotJobs extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 14,
         crossAxisSpacing: 14,
-        mainAxisExtent: 188,
+        mainAxisExtent: 204,
       ),
       itemBuilder: (context, index) {
-        return HotJobCard(
-          job: previewJobs[index],
-          width: null,
-        );
+        return HotJobCard(job: previewJobs[index], width: null);
       },
     );
   }
@@ -85,130 +82,143 @@ class HotJobsHeader extends StatelessWidget {
 }
 
 class HotJobCard extends StatelessWidget {
-  const HotJobCard({super.key, required this.job, this.width = 252});
+  const HotJobCard({
+    super.key,
+    required this.job,
+    this.width = 252,
+    this.onTap,
+  });
 
   final JobPostModel job;
   final double? width;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: ZokoColors.softGrey),
-        boxShadow: [
-          BoxShadow(
-            color: ZokoColors.navy.withValues(alpha: 0.08),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 42,
-                height: 42,
-                decoration: BoxDecoration(
-                  color: job.color.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(job.icon, color: job.color, size: 22),
+        child: Container(
+          width: width,
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: ZokoColors.softGrey),
+            boxShadow: [
+              BoxShadow(
+                color: ZokoColors.navy.withValues(alpha: 0.08),
+                blurRadius: 18,
+                offset: const Offset(0, 10),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      job.category,
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: job.color.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(job.icon, color: job.color, size: 22),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          job.category,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: ZokoColors.navy,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          job.postedAt,
+                          style: const TextStyle(
+                            color: ZokoColors.textGrey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                job.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: ZokoColors.navy,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  height: 1.2,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                job.description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: ZokoColors.textGrey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  height: 1.35,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      job.budget,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: ZokoColors.green,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Icon(
+                    Icons.schedule_rounded,
+                    color: ZokoColors.navy.withValues(alpha: 0.68),
+                    size: 16,
+                  ),
+                  const SizedBox(width: 4),
+                  Flexible(
+                    child: Text(
+                      job.deadline,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: ZokoColors.navy,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      job.postedAt,
-                      style: const TextStyle(
-                        color: ZokoColors.textGrey,
                         fontSize: 12,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          Text(
-            job.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: ZokoColors.navy,
-              fontSize: 16,
-              fontWeight: FontWeight.w900,
-              height: 1.2,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            job.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: ZokoColors.textGrey,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              height: 1.35,
-            ),
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  job.budget,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: ZokoColors.green,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                Icons.schedule_rounded,
-                color: ZokoColors.navy.withValues(alpha: 0.68),
-                size: 16,
-              ),
-              const SizedBox(width: 4),
-              Flexible(
-                child: Text(
-                  job.deadline,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: ZokoColors.navy,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
