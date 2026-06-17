@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/account_type.dart';
 import 'package:zoko_marketplace/screens/auth/signup_screen.dart';
 import 'package:zoko_marketplace/screens/home/marketplace_home_page.dart';
@@ -19,6 +19,7 @@ class LoginScreen extends StatelessWidget {
     final accountType =
         ModalRoute.of(context)?.settings.arguments as AccountType? ??
         AccountType.client;
+    final themeColors = ZokoThemeColors.of(context);
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               Text(
                 'Welcome back',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: ZokoColors.navy,
+                  color: themeColors.text,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -40,8 +41,8 @@ class LoginScreen extends StatelessWidget {
                 accountType == AccountType.client
                     ? 'Log in to manage jobs and hire professionals.'
                     : 'Log in to manage requests and grow your profile.',
-                style: const TextStyle(
-                  color: ZokoColors.textGrey,
+                style: TextStyle(
+                  color: themeColors.mutedText,
                   fontSize: 15,
                   height: 1.4,
                 ),
@@ -87,9 +88,9 @@ class LoginScreen extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'New to Zoko?',
-                    style: TextStyle(color: ZokoColors.textGrey),
+                    style: TextStyle(color: themeColors.mutedText),
                   ),
                   TextButton(
                     onPressed: () {

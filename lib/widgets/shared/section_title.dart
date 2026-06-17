@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
@@ -15,6 +16,7 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
     final actionWidget = Text(
       action,
       style: const TextStyle(
@@ -27,8 +29,8 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            color: ZokoColors.navy,
+          style: TextStyle(
+            color: themeColors.text,
             fontSize: 20,
             fontWeight: FontWeight.w900,
           ),

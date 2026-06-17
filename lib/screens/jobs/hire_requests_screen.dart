@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/hire_request_model.dart';
 import 'package:zoko_marketplace/services/request_tracking_service.dart';
 import 'package:zoko_marketplace/screens/jobs/hire_request_details_screen.dart';
@@ -61,7 +62,7 @@ class _HireRequestsScreenState extends State<HireRequestsScreen> {
         ),
       ),
       bottomNavigationBar: const ZokoBottomNav(selectedIndex: 2),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 
@@ -83,9 +84,11 @@ class _RequestsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Row(
         children: [
           Container(
@@ -105,10 +108,10 @@ class _RequestsHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Hire requests',
                   style: TextStyle(
-                    color: ZokoColors.navy,
+                    color: themeColors.text,
                     fontSize: 24,
                     fontWeight: FontWeight.w900,
                   ),
@@ -116,8 +119,8 @@ class _RequestsHeader extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   '$totalCount active request${totalCount == 1 ? '' : 's'}',
-                  style: const TextStyle(
-                    color: ZokoColors.textGrey,
+                  style: TextStyle(
+                    color: themeColors.mutedText,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -141,6 +144,7 @@ class _StatusFilters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
     final statuses = [
       null,
       HireRequestStatus.pendingAdminReview,
@@ -164,15 +168,15 @@ class _StatusFilters extends StatelessWidget {
             selected: isSelected,
             showCheckmark: false,
             selectedColor: ZokoColors.teal,
-            backgroundColor: Colors.white,
+            backgroundColor: themeColors.card,
             side: BorderSide(
-              color: isSelected ? ZokoColors.teal : ZokoColors.softGrey,
+              color: isSelected ? ZokoColors.teal : themeColors.border,
             ),
             label: Text(
               status == null ? 'All' : hireRequestStatusLabel(status),
             ),
             labelStyle: TextStyle(
-              color: isSelected ? Colors.white : ZokoColors.navy,
+              color: isSelected ? Colors.white : themeColors.text,
               fontWeight: FontWeight.w900,
             ),
             onSelected: (_) => onSelected(status),
@@ -215,9 +219,11 @@ class _RequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -240,8 +246,8 @@ class _RequestCard extends StatelessWidget {
                       request.professional.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: ZokoColors.navy,
+                      style: TextStyle(
+                        color: themeColors.text,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -249,8 +255,8 @@ class _RequestCard extends StatelessWidget {
                       request.professional.role,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: ZokoColors.textGrey,
+                      style: TextStyle(
+                        color: themeColors.mutedText,
                         fontSize: 12,
                       ),
                     ),
@@ -265,8 +271,8 @@ class _RequestCard extends StatelessWidget {
             request.projectTitle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: ZokoColors.navy,
+            style: TextStyle(
+              color: themeColors.text,
               fontSize: 17,
               fontWeight: FontWeight.w900,
             ),
@@ -276,7 +282,7 @@ class _RequestCard extends StatelessWidget {
             request.description,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: ZokoColors.textGrey, height: 1.35),
+            style: TextStyle(color: themeColors.mutedText, height: 1.35),
           ),
           const Spacer(),
           Row(
@@ -343,6 +349,8 @@ class _RequestMeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -353,8 +361,8 @@ class _RequestMeta extends StatelessWidget {
             label,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: ZokoColors.navy,
+            style: TextStyle(
+              color: themeColors.text,
               fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
@@ -370,26 +378,32 @@ class _EmptyRequests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: _cardDecoration(),
-      child: const Column(
+      decoration: _cardDecoration(context),
+      child: Column(
         children: [
-          Icon(Icons.assignment_late_rounded, color: ZokoColors.teal, size: 44),
-          SizedBox(height: 10),
+          const Icon(
+            Icons.assignment_late_rounded,
+            color: ZokoColors.teal,
+            size: 44,
+          ),
+          const SizedBox(height: 10),
           Text(
             'No requests here',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Text(
             'Try another status or request a hire from a professional profile.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: ZokoColors.textGrey, height: 1.4),
+            style: TextStyle(color: themeColors.mutedText, height: 1.4),
           ),
         ],
       ),
@@ -397,14 +411,16 @@ class _EmptyRequests extends StatelessWidget {
   }
 }
 
-BoxDecoration _cardDecoration() {
+BoxDecoration _cardDecoration(BuildContext context) {
+  final themeColors = ZokoThemeColors.of(context);
+
   return BoxDecoration(
-    color: Colors.white,
+    color: themeColors.card,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: ZokoColors.softGrey),
+    border: Border.all(color: themeColors.border),
     boxShadow: [
       BoxShadow(
-        color: ZokoColors.navy.withValues(alpha: 0.08),
+        color: themeColors.shadow,
         blurRadius: 14,
         offset: const Offset(0, 7),
       ),

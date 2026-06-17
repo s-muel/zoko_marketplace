@@ -20,8 +20,8 @@ class AllJobsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hot Jobs'),
-        backgroundColor: ZokoColors.canvas,
-        foregroundColor: ZokoColors.navy,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
       ),
       body: SafeArea(
@@ -102,7 +102,7 @@ class AllJobsScreen extends StatelessWidget {
         icon: const Icon(Icons.add_rounded),
         label: const Text('Post job'),
       ),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }

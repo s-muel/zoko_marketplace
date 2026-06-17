@@ -82,7 +82,7 @@ class ProfessionalDashboardScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ProfessionalBottomNav(selectedIndex: 0),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }

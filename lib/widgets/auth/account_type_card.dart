@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 
 class AccountTypeCard extends StatelessWidget {
   const AccountTypeCard({
@@ -19,8 +20,9 @@ class AccountTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = isSelected ? ZokoColors.teal : ZokoColors.softGrey;
-    final iconColor = isSelected ? ZokoColors.teal : ZokoColors.navy;
+    final themeColors = ZokoThemeColors.of(context);
+    final borderColor = isSelected ? ZokoColors.teal : themeColors.border;
+    final iconColor = isSelected ? ZokoColors.teal : themeColors.mutedText;
 
     return InkWell(
       onTap: onTap,
@@ -28,7 +30,7 @@ class AccountTypeCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeColors.card,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: borderColor, width: isSelected ? 1.8 : 1),
         ),
@@ -50,8 +52,8 @@ class AccountTypeCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: ZokoColors.navy,
+                    style: TextStyle(
+                      color: themeColors.text,
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                     ),
@@ -59,8 +61,8 @@ class AccountTypeCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      color: ZokoColors.textGrey,
+                    style: TextStyle(
+                      color: themeColors.mutedText,
                       height: 1.35,
                     ),
                   ),

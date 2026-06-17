@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/constants/app_assets.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
-import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/account_type.dart';
 import 'package:zoko_marketplace/screens/auth/login_screen.dart';
 import 'package:zoko_marketplace/screens/auth/signup_screen.dart';
@@ -70,6 +70,8 @@ class _WelcomeIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -83,17 +85,17 @@ class _WelcomeIntro extends StatelessWidget {
         Text(
           'Welcome to Zoko Marketplace',
           style: TextStyle(
-            color: ZokoColors.navy,
+            color: themeColors.text,
             fontSize: isDesktop ? 46 : 32,
             height: 1.08,
             fontWeight: FontWeight.w900,
           ),
         ),
         const SizedBox(height: 12),
-        const Text(
+        Text(
           'Hire verified professionals or grow your business by offering services clients can trust.',
           style: TextStyle(
-            color: ZokoColors.textGrey,
+            color: themeColors.mutedText,
             fontSize: 16,
             height: 1.45,
           ),
@@ -134,20 +136,18 @@ class _AccountTypeForm extends StatelessWidget {
         const SizedBox(height: 28),
         FilledButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(
-              SignupScreen.routeName,
-              arguments: selectedAccountType,
-            );
+            Navigator.of(
+              context,
+            ).pushNamed(SignupScreen.routeName, arguments: selectedAccountType);
           },
           child: const Text('Create account'),
         ),
         const SizedBox(height: 12),
         OutlinedButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(
-              LoginScreen.routeName,
-              arguments: selectedAccountType,
-            );
+            Navigator.of(
+              context,
+            ).pushNamed(LoginScreen.routeName, arguments: selectedAccountType);
           },
           child: const Text('Log in'),
         ),

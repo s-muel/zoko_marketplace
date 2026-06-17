@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/services/hire_request_service.dart';
 
@@ -32,15 +33,16 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
   @override
   Widget build(BuildContext context) {
     final keyboardPadding = MediaQuery.viewInsetsOf(context).bottom;
+    final themeColors = ZokoThemeColors.of(context);
 
     return Padding(
       padding: EdgeInsets.only(bottom: keyboardPadding),
       child: Container(
         constraints: const BoxConstraints(maxHeight: 720),
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
-        decoration: const BoxDecoration(
-          color: ZokoColors.canvas,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+        decoration: BoxDecoration(
+          color: themeColors.canvas,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
         ),
         child: Form(
           key: _formKey,
@@ -49,11 +51,11 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Request a hire',
                       style: TextStyle(
-                        color: ZokoColors.navy,
+                        color: themeColors.text,
                         fontSize: 22,
                         fontWeight: FontWeight.w900,
                       ),
@@ -61,15 +63,15 @@ class _HireRequestSheetState extends State<HireRequestSheet> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close_rounded),
+                    icon: Icon(Icons.close_rounded, color: themeColors.text),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
               Text(
                 'Zoko admin will review this request, contact ${widget.professional.name}, confirm charges, and invoice you.',
-                style: const TextStyle(
-                  color: ZokoColors.textGrey,
+                style: TextStyle(
+                  color: themeColors.mutedText,
                   height: 1.4,
                 ),
               ),
@@ -141,6 +143,8 @@ class _PictureAttachmentBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return InkWell(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -153,10 +157,10 @@ class _PictureAttachmentBox extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeColors.card,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: ZokoColors.teal.withValues(alpha: 0.34),
+            color: themeColors.border,
           ),
         ),
         child: Row(
@@ -174,22 +178,22 @@ class _PictureAttachmentBox extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Add reference pictures',
                     style: TextStyle(
-                      color: ZokoColors.navy,
+                      color: themeColors.text,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'Upload samples, sketches, screenshots, or inspiration.',
                     style: TextStyle(
-                      color: ZokoColors.textGrey,
+                      color: themeColors.mutedText,
                       height: 1.3,
                     ),
                   ),
@@ -221,10 +225,13 @@ class _RequestField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
       keyboardType: keyboardType,
+      style: TextStyle(color: themeColors.text),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
           return 'Required';
@@ -232,7 +239,10 @@ class _RequestField extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
+        filled: true,
+        fillColor: themeColors.card,
         labelText: label,
+        labelStyle: TextStyle(color: themeColors.mutedText),
         prefixIcon: Icon(icon, color: ZokoColors.teal),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/constants/app_assets.dart';
-import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 
 class GoogleAuthButton extends StatelessWidget {
   const GoogleAuthButton({
@@ -14,12 +14,14 @@ class GoogleAuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.white,
-        foregroundColor: ZokoColors.navy,
-        side: const BorderSide(color: ZokoColors.softGrey),
+        backgroundColor: themeColors.card,
+        foregroundColor: themeColors.text,
+        side: BorderSide(color: themeColors.border),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +34,7 @@ class GoogleAuthButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: ZokoColors.softGrey),
+              border: Border.all(color: themeColors.border),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6),

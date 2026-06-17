@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/hire_request_model.dart';
 import 'package:zoko_marketplace/utils/hire_request_status_ui.dart';
 import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
@@ -17,6 +18,7 @@ class HireRequestDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        foregroundColor: ZokoThemeColors.of(context).text,
         title: const Text('Request details'),
       ),
       body: SafeArea(
@@ -68,7 +70,7 @@ class HireRequestDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }
@@ -218,16 +220,18 @@ class _DescriptionPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Project description',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -235,7 +239,7 @@ class _DescriptionPanel extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             request.description,
-            style: const TextStyle(color: ZokoColors.textGrey, height: 1.45),
+            style: TextStyle(color: themeColors.mutedText, height: 1.45),
           ),
         ],
       ),
@@ -248,13 +252,15 @@ class _ReferencePicturesPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
-      child: const Row(
+      decoration: _cardDecoration(context),
+      child: Row(
         children: [
-          Icon(Icons.image_outlined, color: ZokoColors.teal),
-          SizedBox(width: 12),
+          const Icon(Icons.image_outlined, color: ZokoColors.teal),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,14 +268,14 @@ class _ReferencePicturesPanel extends StatelessWidget {
                 Text(
                   'Reference pictures',
                   style: TextStyle(
-                    color: ZokoColors.navy,
+                    color: themeColors.text,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   'No pictures attached yet.',
-                  style: TextStyle(color: ZokoColors.textGrey),
+                  style: TextStyle(color: themeColors.mutedText),
                 ),
               ],
             ),
@@ -333,14 +339,14 @@ class _TimelinePanel extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Request timeline',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: ZokoThemeColors.of(context).text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -360,7 +366,8 @@ class _TimelineStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = step.isActive ? ZokoColors.teal : ZokoColors.textGrey;
+    final themeColors = ZokoThemeColors.of(context);
+    final color = step.isActive ? ZokoColors.teal : themeColors.mutedText;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -380,7 +387,7 @@ class _TimelineStep extends StatelessWidget {
             child: Text(
               step.label,
               style: TextStyle(
-                color: step.isActive ? ZokoColors.navy : ZokoColors.textGrey,
+                color: step.isActive ? themeColors.text : themeColors.mutedText,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -418,7 +425,7 @@ class _ActionsPanel extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -484,14 +491,16 @@ String _formatSubmittedDate(DateTime date) {
   return '${months[date.month - 1]} ${date.day}, ${date.year}';
 }
 
-BoxDecoration _cardDecoration() {
+BoxDecoration _cardDecoration(BuildContext context) {
+  final themeColors = ZokoThemeColors.of(context);
+
   return BoxDecoration(
-    color: Colors.white,
+    color: themeColors.card,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: ZokoColors.softGrey),
+    border: Border.all(color: themeColors.border),
     boxShadow: [
       BoxShadow(
-        color: ZokoColors.navy.withValues(alpha: 0.08),
+        color: themeColors.shadow,
         blurRadius: 14,
         offset: const Offset(0, 7),
       ),

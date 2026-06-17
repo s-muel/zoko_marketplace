@@ -65,7 +65,7 @@ class ProfessionalProposalsScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ProfessionalBottomNav(selectedIndex: 2),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }

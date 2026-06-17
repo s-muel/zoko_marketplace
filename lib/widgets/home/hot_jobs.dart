@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/job_post_model.dart';
 
 class HotJobs extends StatelessWidget {
@@ -40,13 +41,15 @@ class HotJobsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Row(
       children: [
-        const Expanded(
+        Expanded(
           child: Text(
             'Hot Jobs',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 20,
               fontWeight: FontWeight.w900,
             ),
@@ -57,7 +60,7 @@ class HotJobsHeader extends StatelessWidget {
           icon: const Icon(Icons.add_rounded, size: 18),
           label: const Text('Post job'),
           style: TextButton.styleFrom(
-            foregroundColor: ZokoColors.navy,
+            foregroundColor: themeColors.text,
             textStyle: const TextStyle(fontWeight: FontWeight.w900),
           ),
         ),
@@ -95,6 +98,8 @@ class HotJobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -104,12 +109,12 @@ class HotJobCard extends StatelessWidget {
           width: width,
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: themeColors.card,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: ZokoColors.softGrey),
+            border: Border.all(color: themeColors.border),
             boxShadow: [
               BoxShadow(
-                color: ZokoColors.navy.withValues(alpha: 0.08),
+                color: themeColors.shadow,
                 blurRadius: 18,
                 offset: const Offset(0, 10),
               ),
@@ -138,16 +143,16 @@ class HotJobCard extends StatelessWidget {
                           job.category,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: ZokoColors.navy,
+                          style: TextStyle(
+                            color: themeColors.text,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           job.postedAt,
-                          style: const TextStyle(
-                            color: ZokoColors.textGrey,
+                          style: TextStyle(
+                            color: themeColors.mutedText,
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                           ),
@@ -162,8 +167,8 @@ class HotJobCard extends StatelessWidget {
                 job.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: ZokoColors.navy,
+                style: TextStyle(
+                  color: themeColors.text,
                   fontSize: 16,
                   fontWeight: FontWeight.w900,
                   height: 1.2,
@@ -174,8 +179,8 @@ class HotJobCard extends StatelessWidget {
                 job.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: ZokoColors.textGrey,
+                style: TextStyle(
+                  color: themeColors.mutedText,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   height: 1.35,
@@ -198,17 +203,17 @@ class HotJobCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Icon(
                     Icons.schedule_rounded,
-                    color: ZokoColors.navy.withValues(alpha: 0.68),
-                    size: 16,
-                  ),
+                  color: ZokoColors.navy.withValues(alpha: 0.68),
+                  size: 16,
+                ),
                   const SizedBox(width: 4),
                   Flexible(
                     child: Text(
                       job.deadline,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: ZokoColors.navy,
+                      style: TextStyle(
+                        color: themeColors.text,
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
                       ),

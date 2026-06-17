@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/portfolio_sample_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/widgets/marketplace/hire_request_sheet.dart';
@@ -17,6 +18,7 @@ class ProfessionalProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        foregroundColor: ZokoThemeColors.of(context).text,
         title: const Text('Professional profile'),
       ),
       body: SafeArea(
@@ -70,6 +72,7 @@ class ProfessionalProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 
@@ -212,16 +215,18 @@ class _InfoPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _panelDecoration(),
+      decoration: _panelDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'About',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -229,7 +234,7 @@ class _InfoPanel extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             professional.about,
-            style: const TextStyle(color: ZokoColors.textGrey, height: 1.45),
+            style: TextStyle(color: themeColors.mutedText, height: 1.45),
           ),
         ],
       ),
@@ -244,18 +249,20 @@ class _ServicesPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _panelDecoration(),
+      decoration: _panelDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 'Services',
                 style: TextStyle(
-                  color: ZokoColors.navy,
+                  color: themeColors.text,
                   fontSize: 18,
                   fontWeight: FontWeight.w900,
                 ),
@@ -280,8 +287,8 @@ class _ServicesPanel extends StatelessWidget {
                   label: Text(skill),
                   backgroundColor: ZokoColors.teal.withValues(alpha: 0.1),
                   side: BorderSide.none,
-                  labelStyle: const TextStyle(
-                    color: ZokoColors.navy,
+                  labelStyle: TextStyle(
+                    color: themeColors.text,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -301,16 +308,18 @@ class _PortfolioPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _panelDecoration(),
+      decoration: _panelDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Work samples',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -442,24 +451,26 @@ class _HireSummaryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _panelDecoration(),
+      decoration: _panelDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Hire managed by Zoko',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Send a request and Zoko admin will confirm charges with the professional, then invoice you.',
-            style: TextStyle(color: ZokoColors.textGrey, height: 1.4),
+            style: TextStyle(color: themeColors.mutedText, height: 1.4),
           ),
           const SizedBox(height: 16),
           _HireStep(
@@ -490,8 +501,8 @@ class _HireSummaryPanel extends StatelessWidget {
                 Expanded(
                   child: Text(
                     professional.startingPrice,
-                    style: const TextStyle(
-                      color: ZokoColors.navy,
+                    style: TextStyle(
+                      color: themeColors.text,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -519,6 +530,8 @@ class _HireStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Row(
       children: [
         Container(
@@ -534,8 +547,8 @@ class _HireStep extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              color: ZokoColors.navy,
+            style: TextStyle(
+              color: themeColors.text,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -545,14 +558,16 @@ class _HireStep extends StatelessWidget {
   }
 }
 
-BoxDecoration _panelDecoration() {
+BoxDecoration _panelDecoration(BuildContext context) {
+  final themeColors = ZokoThemeColors.of(context);
+
   return BoxDecoration(
-    color: Colors.white,
+    color: themeColors.card,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: ZokoColors.softGrey),
+    border: Border.all(color: themeColors.border),
     boxShadow: [
       BoxShadow(
-        color: ZokoColors.navy.withValues(alpha: 0.08),
+        color: themeColors.shadow,
         blurRadius: 14,
         offset: const Offset(0, 7),
       ),

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 
 class HeroSearch extends StatelessWidget {
   const HeroSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final themeColors = ZokoThemeColors.of(context);
+    final searchBackground = isDark
+        ? Theme.of(context).scaffoldBackgroundColor
+        : Colors.white;
+
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -63,24 +70,25 @@ class HeroSearch extends StatelessWidget {
             height: 54,
             padding: const EdgeInsets.symmetric(horizontal: 14),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: searchBackground,
               borderRadius: BorderRadius.circular(8),
+              border: isDark ? Border.all(color: themeColors.border) : null,
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.search_rounded, color: ZokoColors.teal),
-                SizedBox(width: 10),
+                const Icon(Icons.search_rounded, color: ZokoColors.teal),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     'Search logo design, plumbing, legal help...',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: ZokoColors.textGrey,
+                      color: themeColors.mutedText,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-                Icon(Icons.tune_rounded, color: ZokoColors.navy),
+                Icon(Icons.tune_rounded, color: themeColors.text),
               ],
             ),
           ),

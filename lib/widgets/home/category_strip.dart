@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/category_model.dart';
 
 class CategoryStrip extends StatelessWidget {
@@ -9,6 +10,8 @@ class CategoryStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return SizedBox(
       height: 92,
       child: ListView.separated(
@@ -21,12 +24,12 @@ class CategoryStrip extends StatelessWidget {
             width: 104,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: themeColors.card,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: ZokoColors.softGrey),
+              border: Border.all(color: themeColors.border),
               boxShadow: [
                 BoxShadow(
-                  color: ZokoColors.navy.withValues(alpha: 0.08),
+                  color: themeColors.shadow,
                   blurRadius: 14,
                   offset: const Offset(0, 7),
                 ),
@@ -39,8 +42,8 @@ class CategoryStrip extends StatelessWidget {
                 Icon(category.icon, color: category.color),
                 Text(
                   category.label,
-                  style: const TextStyle(
-                    color: ZokoColors.navy,
+                  style: TextStyle(
+                    color: themeColors.text,
                     fontWeight: FontWeight.w800,
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/account_type.dart';
 import 'package:zoko_marketplace/screens/auth/login_screen.dart';
 import 'package:zoko_marketplace/screens/home/marketplace_home_page.dart';
@@ -20,6 +20,7 @@ class SignupScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments as AccountType? ??
         AccountType.client;
     final isProfessional = accountType == AccountType.professional;
+    final themeColors = ZokoThemeColors.of(context);
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
@@ -34,7 +35,7 @@ class SignupScreen extends StatelessWidget {
                     ? 'Create professional profile'
                     : 'Create account',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: ZokoColors.navy,
+                  color: themeColors.text,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -43,8 +44,8 @@ class SignupScreen extends StatelessWidget {
                 isProfessional
                     ? 'Start receiving verified requests from clients.'
                     : 'Find skilled professionals for your next project.',
-                style: const TextStyle(
-                  color: ZokoColors.textGrey,
+                style: TextStyle(
+                  color: themeColors.mutedText,
                   fontSize: 15,
                   height: 1.4,
                 ),
@@ -97,9 +98,9 @@ class SignupScreen extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'Already have an account?',
-                    style: TextStyle(color: ZokoColors.textGrey),
+                    style: TextStyle(color: themeColors.mutedText),
                   ),
                   TextButton(
                     onPressed: () {

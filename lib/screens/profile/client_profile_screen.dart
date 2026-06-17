@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/screens/admin/admin_dashboard_screen.dart';
 import 'package:zoko_marketplace/screens/auth/auth_welcome_screen.dart';
 import 'package:zoko_marketplace/widgets/app/zoko_bottom_nav.dart';
+import 'package:zoko_marketplace/widgets/shared/appearance_selector.dart';
 import 'package:zoko_marketplace/widgets/shared/responsive_page.dart';
 
 class ClientProfileScreen extends StatelessWidget {
@@ -32,7 +34,7 @@ class ClientProfileScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ZokoBottomNav(selectedIndex: 3),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }
@@ -154,7 +156,7 @@ class _StatsPanel extends StatelessWidget {
           crossAxisCount: isWide ? 4 : 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: isWide ? 1.28 : 1.45,
+          childAspectRatio: isWide ? 1.9 : 2.05,
           children: stats,
         );
       },
@@ -175,27 +177,29 @@ class _ProfileStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: _cardDecoration(),
+      padding: const EdgeInsets.all(12),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: ZokoColors.teal),
+          Icon(icon, color: ZokoColors.teal, size: 22),
           const Spacer(),
           Text(
             value,
-            style: const TextStyle(
-              color: ZokoColors.navy,
-              fontSize: 24,
+            style: TextStyle(
+              color: themeColors.text,
+              fontSize: 20,
               fontWeight: FontWeight.w900,
             ),
           ),
-          const SizedBox(height: 3),
+          const SizedBox(height: 2),
           Text(
             label,
-            style: const TextStyle(
-              color: ZokoColors.textGrey,
+            style: TextStyle(
+              color: themeColors.mutedText,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -238,6 +242,8 @@ class _SettingsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return _ProfileSection(
       title: 'Settings',
       children: [
@@ -245,17 +251,20 @@ class _SettingsPanel extends StatelessWidget {
           icon: Icons.admin_panel_settings_rounded,
           title: 'Admin dashboard',
           subtitle: 'Review requests, quotes, invoices, and job progress',
-          color: ZokoColors.navy,
+          color: themeColors.text,
           onTap: () {
             Navigator.of(context).pushNamed(AdminDashboardScreen.routeName);
           },
         ),
-        const Divider(height: 20, color: ZokoColors.softGrey),
+        Divider(height: 20, color: themeColors.border),
         const _ProfileAction(
           icon: Icons.notifications_none_rounded,
           title: 'Notification preferences',
           subtitle: 'Manage email and request updates',
         ),
+        Divider(height: 20, color: themeColors.border),
+        const AppearanceSelector(),
+        Divider(height: 20, color: themeColors.border),
         const _ProfileAction(
           icon: Icons.support_agent_rounded,
           title: 'Contact Zoko support',
@@ -288,16 +297,18 @@ class _ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: ZokoColors.navy,
+            style: TextStyle(
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -306,7 +317,7 @@ class _ProfileSection extends StatelessWidget {
           for (final child in children) ...[
             child,
             if (child != children.last)
-              const Divider(height: 20, color: ZokoColors.softGrey),
+              Divider(height: 20, color: themeColors.border),
           ],
         ],
       ),
@@ -331,6 +342,8 @@ class _ProfileAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -352,16 +365,16 @@ class _ProfileAction extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: ZokoColors.navy,
+                  style: TextStyle(
+                    color: themeColors.text,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    color: ZokoColors.textGrey,
+                  style: TextStyle(
+                    color: themeColors.mutedText,
                     height: 1.3,
                   ),
                 ),
@@ -375,14 +388,16 @@ class _ProfileAction extends StatelessWidget {
   }
 }
 
-BoxDecoration _cardDecoration() {
+BoxDecoration _cardDecoration(BuildContext context) {
+  final themeColors = ZokoThemeColors.of(context);
+
   return BoxDecoration(
-    color: Colors.white,
+    color: themeColors.card,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: ZokoColors.softGrey),
+    border: Border.all(color: themeColors.border),
     boxShadow: [
       BoxShadow(
-        color: ZokoColors.navy.withValues(alpha: 0.08),
+        color: themeColors.shadow,
         blurRadius: 14,
         offset: const Offset(0, 7),
       ),

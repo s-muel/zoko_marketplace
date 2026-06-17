@@ -36,8 +36,8 @@ class ProfessionalJobsScreen extends StatelessWidget {
           },
         ),
         title: const Text('Available jobs'),
-        backgroundColor: ZokoColors.canvas,
-        foregroundColor: ZokoColors.navy,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         elevation: 0,
       ),
       body: SafeArea(
@@ -105,7 +105,7 @@ class ProfessionalJobsScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ProfessionalBottomNav(selectedIndex: 1),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }

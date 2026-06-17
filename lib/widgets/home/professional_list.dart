@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
 
@@ -28,6 +29,8 @@ class _ProfessionalTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -39,12 +42,12 @@ class _ProfessionalTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeColors.card,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: ZokoColors.softGrey),
+          border: Border.all(color: themeColors.border),
           boxShadow: [
             BoxShadow(
-              color: ZokoColors.navy.withValues(alpha: 0.08),
+              color: themeColors.shadow,
               blurRadius: 14,
               offset: const Offset(0, 7),
             ),
@@ -57,12 +60,12 @@ class _ProfessionalTile extends StatelessWidget {
               height: 58,
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: themeColors.card,
                 shape: BoxShape.circle,
-                border: Border.all(color: ZokoColors.softGrey),
+                border: Border.all(color: themeColors.border),
                 boxShadow: [
                   BoxShadow(
-                    color: ZokoColors.navy.withValues(alpha: 0.1),
+                    color: themeColors.shadow,
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -82,8 +85,8 @@ class _ProfessionalTile extends StatelessWidget {
                 children: [
                   Text(
                     professional.name,
-                    style: const TextStyle(
-                      color: ZokoColors.navy,
+                    style: TextStyle(
+                      color: themeColors.text,
                       fontWeight: FontWeight.w900,
                       fontSize: 16,
                     ),
@@ -92,7 +95,7 @@ class _ProfessionalTile extends StatelessWidget {
                   Text(
                     professional.role,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: ZokoColors.textGrey),
+                    style: TextStyle(color: themeColors.mutedText),
                   ),
                 ],
               ),
@@ -110,8 +113,8 @@ class _ProfessionalTile extends StatelessWidget {
                     ),
                     Text(
                       professional.rating,
-                      style: const TextStyle(
-                        color: ZokoColors.navy,
+                      style: TextStyle(
+                        color: themeColors.text,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -120,8 +123,8 @@ class _ProfessionalTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   professional.jobs,
-                  style: const TextStyle(
-                    color: ZokoColors.textGrey,
+                  style: TextStyle(
+                    color: themeColors.mutedText,
                     fontSize: 12,
                   ),
                 ),

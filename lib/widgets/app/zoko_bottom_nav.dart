@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/navigation/app_navigation.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 
 class ZokoBottomNav extends StatelessWidget {
   const ZokoBottomNav({super.key, required this.selectedIndex});
@@ -9,16 +10,18 @@ class ZokoBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 14),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.22),
+          color: themeColors.card.withValues(alpha: 0.74),
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.65)),
+          border: Border.all(color: themeColors.border),
           boxShadow: [
             BoxShadow(
-              color: ZokoColors.navy.withValues(alpha: 0.08),
+              color: themeColors.shadow,
               blurRadius: 18,
               offset: const Offset(0, 8),
             ),
@@ -35,7 +38,7 @@ class ZokoBottomNav extends StatelessWidget {
                 final isSelected = states.contains(WidgetState.selected);
 
                 return TextStyle(
-                  color: isSelected ? ZokoColors.navy : ZokoColors.textGrey,
+                  color: isSelected ? themeColors.text : themeColors.mutedText,
                   fontSize: 11,
                   fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
                 );
@@ -44,7 +47,7 @@ class ZokoBottomNav extends StatelessWidget {
                 final isSelected = states.contains(WidgetState.selected);
 
                 return IconThemeData(
-                  color: isSelected ? ZokoColors.teal : ZokoColors.navy,
+                  color: isSelected ? ZokoColors.teal : themeColors.text,
                   size: isSelected ? 23 : 21,
                 );
               }),

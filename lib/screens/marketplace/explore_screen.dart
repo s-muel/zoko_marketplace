@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoko_marketplace/core/layout/responsive_breakpoints.dart';
 import 'package:zoko_marketplace/core/theme/zoko_colors.dart';
+import 'package:zoko_marketplace/core/theme/zoko_theme.dart';
 import 'package:zoko_marketplace/models/category_model.dart';
 import 'package:zoko_marketplace/models/professional_model.dart';
 import 'package:zoko_marketplace/screens/marketplace/professional_profile_screen.dart';
@@ -67,7 +68,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ),
       ),
       bottomNavigationBar: const ZokoBottomNav(selectedIndex: 1),
-      backgroundColor: ZokoColors.canvas,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 
@@ -97,26 +98,32 @@ class _EmptyResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(22),
-      decoration: _cardDecoration(),
-      child: const Column(
+      decoration: _cardDecoration(context),
+      child: Column(
         children: [
-          Icon(Icons.search_off_rounded, color: ZokoColors.teal, size: 42),
-          SizedBox(height: 10),
+          const Icon(
+            Icons.search_off_rounded,
+            color: ZokoColors.teal,
+            size: 42,
+          ),
+          const SizedBox(height: 10),
           Text(
             'No professionals yet',
             style: TextStyle(
-              color: ZokoColors.navy,
+              color: themeColors.text,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Text(
             'Try another category while more professionals are being added.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: ZokoColors.textGrey, height: 1.4),
+            style: TextStyle(color: themeColors.mutedText, height: 1.4),
           ),
         ],
       ),
@@ -129,21 +136,27 @@ class _SearchPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       padding: const EdgeInsets.all(14),
-      decoration: _cardDecoration(),
+      decoration: _cardDecoration(context),
       child: Column(
         children: [
           TextField(
+            style: TextStyle(color: themeColors.text),
             decoration: InputDecoration(
+              filled: true,
+              fillColor: themeColors.canvas,
               hintText: 'Search designers, developers, consultants...',
+              hintStyle: TextStyle(color: themeColors.mutedText),
               prefixIcon: const Icon(
                 Icons.search_rounded,
                 color: ZokoColors.teal,
               ),
               suffixIcon: IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.tune_rounded),
+                icon: Icon(Icons.tune_rounded, color: themeColors.text),
               ),
             ),
           ),
@@ -179,25 +192,27 @@ class _FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Container(
       height: 46,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: ZokoColors.canvas,
+        color: themeColors.canvas,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: ZokoColors.softGrey),
+        border: Border.all(color: themeColors.border),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: ZokoColors.navy, size: 19),
+          Icon(icon, color: themeColors.text, size: 19),
           const SizedBox(width: 8),
           Flexible(
             child: Text(
               label,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: ZokoColors.navy,
+              style: TextStyle(
+                color: themeColors.text,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -222,6 +237,7 @@ class _CategoryFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final labels = ['All', ...categories.map((category) => category.label)];
+    final themeColors = ZokoThemeColors.of(context);
 
     return SizedBox(
       height: 44,
@@ -239,12 +255,12 @@ class _CategoryFilters extends StatelessWidget {
             onSelected: (_) => onSelected(label),
             showCheckmark: false,
             selectedColor: ZokoColors.teal,
-            backgroundColor: Colors.white,
+            backgroundColor: themeColors.card,
             side: BorderSide(
-              color: isSelected ? ZokoColors.teal : ZokoColors.softGrey,
+              color: isSelected ? ZokoColors.teal : themeColors.border,
             ),
             labelStyle: TextStyle(
-              color: isSelected ? Colors.white : ZokoColors.navy,
+              color: isSelected ? Colors.white : themeColors.text,
               fontWeight: FontWeight.w900,
             ),
           );
@@ -261,12 +277,14 @@ class _ResultsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Row(
       children: [
-        const Text(
+        Text(
           'Available professionals',
           style: TextStyle(
-            color: ZokoColors.navy,
+            color: themeColors.text,
             fontSize: 20,
             fontWeight: FontWeight.w900,
           ),
@@ -274,8 +292,8 @@ class _ResultsHeader extends StatelessWidget {
         const Spacer(),
         Text(
           '$count found',
-          style: const TextStyle(
-            color: ZokoColors.textGrey,
+          style: TextStyle(
+            color: themeColors.mutedText,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -305,7 +323,7 @@ class _ProfessionalsGrid extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
-        childAspectRatio: isDesktop ? 1.12 : 2.12,
+        childAspectRatio: isDesktop ? 1.48 : 2.12,
       ),
       itemBuilder: (context, index) {
         return _ProfessionalExploreCard(
@@ -338,27 +356,29 @@ class _ProfessionalExploreCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Container(
         padding: const EdgeInsets.all(14),
-        decoration: _cardDecoration(),
-        child: isDesktop ? _desktopCard() : _mobileCard(),
+        decoration: _cardDecoration(context),
+        child: isDesktop ? _desktopCard(context) : _mobileCard(),
       ),
     );
   }
 
-  Widget _desktopCard() {
+  Widget _desktopCard(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 108,
-          height: 108,
+          width: 76,
+          height: 76,
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: themeColors.card,
             shape: BoxShape.circle,
-            border: Border.all(color: ZokoColors.softGrey),
+            border: Border.all(color: themeColors.border),
             boxShadow: [
               BoxShadow(
-                color: ZokoColors.navy.withValues(alpha: 0.1),
+                color: themeColors.shadow,
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
@@ -372,7 +392,7 @@ class _ProfessionalExploreCard extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Expanded(
           child: _ProfessionalCardDetails(professional: professional),
         ),
@@ -409,6 +429,8 @@ class _ProfessionalCardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeColors = ZokoThemeColors.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -420,8 +442,8 @@ class _ProfessionalCardDetails extends StatelessWidget {
                 professional.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: ZokoColors.navy,
+                style: TextStyle(
+                  color: themeColors.text,
                   fontSize: 16,
                   fontWeight: FontWeight.w900,
                 ),
@@ -430,8 +452,8 @@ class _ProfessionalCardDetails extends StatelessWidget {
             const Icon(Icons.star_rounded, color: ZokoColors.green, size: 17),
             Text(
               professional.rating,
-              style: const TextStyle(
-                color: ZokoColors.navy,
+              style: TextStyle(
+                color: themeColors.text,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -442,8 +464,8 @@ class _ProfessionalCardDetails extends StatelessWidget {
           professional.role,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: ZokoColors.textGrey,
+          style: TextStyle(
+            color: themeColors.mutedText,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -461,8 +483,8 @@ class _ProfessionalCardDetails extends StatelessWidget {
                 ),
                 child: Text(
                   skill,
-                  style: const TextStyle(
-                    color: ZokoColors.navy,
+                  style: TextStyle(
+                    color: themeColors.text,
                     fontSize: 11,
                     fontWeight: FontWeight.w800,
                   ),
@@ -493,14 +515,16 @@ class _ProfessionalCardDetails extends StatelessWidget {
   }
 }
 
-BoxDecoration _cardDecoration() {
+BoxDecoration _cardDecoration(BuildContext context) {
+  final themeColors = ZokoThemeColors.of(context);
+
   return BoxDecoration(
-    color: Colors.white,
+    color: themeColors.card,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(color: ZokoColors.softGrey),
+    border: Border.all(color: themeColors.border),
     boxShadow: [
       BoxShadow(
-        color: ZokoColors.navy.withValues(alpha: 0.08),
+        color: themeColors.shadow,
         blurRadius: 14,
         offset: const Offset(0, 7),
       ),
